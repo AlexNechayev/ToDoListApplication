@@ -1,0 +1,27 @@
+.listContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: slateblue;
+    color: aliceblue;
+}
+
+.button{
+    margin: 5px;
+    width: 90px;
+    height: 45px;
+    color: aliceblue;
+    background-color:cadetblue;
+    border-radius: 15px;
+}
+
+.largeButton{
+    margin: 5px;
+    width: 290px;
+    height: 45px;
+    color: aliceblue;
+    background-color:cadetblue;
+    border-radius: 15px;
+}

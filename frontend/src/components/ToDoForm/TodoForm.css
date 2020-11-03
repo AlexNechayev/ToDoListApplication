@@ -1,0 +1,13 @@
+.formContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.input{
+    margin: 5px;
+    width: 250px;
+    height: 32px;
+    padding-left: 10px;
+    color: blueviolet;
+    font-size: large;
+}

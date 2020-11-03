@@ -1,10 +1,11 @@
-import React from 'react'
-import "./App.css";
+import React from 'react';
+import ToDoList from './components/ToDoList/ToDoList';
+import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <h1>I found how to run react on Google Chrome</h1>
+        <ToDoList/>
     </div>
   );
 }
