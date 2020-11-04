@@ -2,6 +2,7 @@ import React from "react";
 import TodoForm from "../ToDoForm/TodoForm";
 import Todo from "../ToDoItem/Todo";
 import "./ToDoList.css";
+import Button from "@material-ui/core/Button";
 
 export default class TodoList extends React.Component {
   state = {
@@ -78,28 +79,38 @@ export default class TodoList extends React.Component {
           {this.state.itemsList.filter((item) => !item.complete).length}
         </div>
         <div>
-          <button
-            className="button"
+          <Button
+            classname="button"
+            variant="contained"
+            color="primary"
+            disableElevation
             onClick={() => this.updateTodoToShow("all")}
           >
             all
-          </button>
-          <button
-            className="button"
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            disableElevation
             onClick={() => this.updateTodoToShow("active")}
           >
             active
-          </button>
-          <button
-            className="button"
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            disableElevation
             onClick={() => this.updateTodoToShow("complete")}
           >
             complete
-          </button>
+          </Button>
         </div>
         <div>
-          <button
-            className="largeButton"
+          <Button
+            variant="contained"
+            color="primary"
+            disableElevation
+            size="large"
             onClick={() =>
               this.setState((state) => ({
                 itemsList: state.itemsList.map((item) => ({
@@ -111,16 +122,18 @@ export default class TodoList extends React.Component {
             }
           >
             toggle all complete: {`${this.state.toggleAllComplete}`}
-          </button>
+          </Button>
         </div>
         {this.state.itemsList.some((item) => item.complete) ? (
           <div>
-            <button
-              className="largeButton"
+            <Button
+              variant="contained"
+              color="primary"
+              disableElevation
               onClick={this.removeAllTodosThatAreComplete}
             >
               remove all complete items
-            </button>
+            </Button>
           </div>
         ) : null}
       </div>
