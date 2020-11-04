@@ -1,6 +1,8 @@
 import React from "react";
 import shortid from "shortid";
 import "./TodoForm.css";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
 
 export default class TodoForm extends React.Component {
   state = {
@@ -14,7 +16,7 @@ export default class TodoForm extends React.Component {
   };
 
   handleSubmit = (event) => {
-    event.preventDefault();
+    event.preventDefault(); //prevents the refresh of the web page
     this.props.onSubmit({
       id: shortid.generate(),
       text: this.state.text,
@@ -28,16 +30,23 @@ export default class TodoForm extends React.Component {
   render() {
     return (
       <form className="formContainer" onSubmit={this.handleSubmit}>
-        <input
-          className="input"
+        <TextField
+          id="outlined-basic"
+          label="Item..."
+          variant="outlined"
           name="text"
           value={this.state.text}
           onChange={this.handleChange}
-          placeholder="Item..."
         />
-        <button className="button" onClick={this.handleSubmit}>
+        <Button
+          size="large"
+          variant="contained"
+          color="primary"
+          disableElevation
+          onClick={this.handleSubmit}
+        >
           Add Item
-        </button>
+        </Button>
       </form>
     );
   }
