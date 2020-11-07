@@ -80,7 +80,7 @@ export default class TodoList extends React.Component {
         </div>
         <div>
           <Button
-            classname="button"
+            className="button"
             variant="contained"
             color="primary"
             disableElevation
@@ -128,7 +128,7 @@ export default class TodoList extends React.Component {
           <div>
             <Button
               variant="contained"
-              color="primary"
+              color="secondary"
               disableElevation
               onClick={this.removeAllTodosThatAreComplete}
             >

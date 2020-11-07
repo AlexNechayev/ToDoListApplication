@@ -1,14 +1,13 @@
-const http = require('http');
+const express = require('express');
+const bodyParser = require('body-parser');
 
-const hostname = '127.0.0.1';
-const port = 5000;
 
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello World');
-});
+const app = express();
 
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
-});
+app.use(bodyParser.json());
+
+app.post('/products');
+
+app.get('/products');
+
+app.listen(3000);

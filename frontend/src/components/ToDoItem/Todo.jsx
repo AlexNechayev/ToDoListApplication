@@ -1,6 +1,6 @@
 import React from "react";
 import "./Todo.css";
-import Delete from "@material-ui/icons/Delete";
+import Delete from "@material-ui/icons/DeleteForever";
 import Checkbox from "@material-ui/core/Checkbox";
 
 export default class Todo extends React.Component {

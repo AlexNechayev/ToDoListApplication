@@ -17,11 +17,16 @@ export default class TodoForm extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault(); //prevents the refresh of the web page
-    this.props.onSubmit({
-      id: shortid.generate(),
-      text: this.state.text,
-      complete: false,
-    });
+    if (this.state.text === "") {
+      alert("Add an item");
+    } else {
+      this.props.onSubmit({
+        id: shortid.generate(),
+        text: this.state.text,
+        complete: false,
+        //Add post to database//
+      });
+    }
     this.setState({
       text: "",
     });
@@ -41,7 +46,7 @@ export default class TodoForm extends React.Component {
         <Button
           size="large"
           variant="contained"
-          color="primary"
+          color="secondary"
           disableElevation
           onClick={this.handleSubmit}
         >
