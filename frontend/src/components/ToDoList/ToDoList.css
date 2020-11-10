@@ -4,6 +4,10 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: rgb(155, 182, 255);
+  background-color: rgb(212, 0, 99);
   color: aliceblue;
+}
+
+.title{
+  font-size: 75px;
 }

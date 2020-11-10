@@ -8,7 +8,7 @@ export default class Todo extends React.Component {
     return (
       <div className="itemContainer">
         <Checkbox
-          value={this.props.item.complete}
+          checked={this.props.item.complete}
           inputProps={{ "aria-label": "Checkbox A" }}
           onClick={this.props.toggleComplete}
         />
