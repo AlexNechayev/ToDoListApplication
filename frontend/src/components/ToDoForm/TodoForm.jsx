@@ -1,8 +1,8 @@
 import React from "react";
 import shortid from "shortid";
 import "./TodoForm.css";
-import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
+import StyledButton from '../shared/StyledButton'
 
 export default class TodoForm extends React.Component {
   state = {
@@ -17,11 +17,16 @@ export default class TodoForm extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault(); //prevents the refresh of the web page
-    this.props.onSubmit({
-      id: shortid.generate(),
-      text: this.state.text,
-      complete: false,
-    });
+    if (this.state.text === "") {
+      alert("Add an item");
+    } else {
+      this.props.onSubmit({
+        id: shortid.generate(),
+        text: this.state.text,
+        complete: false,
+        //Add post to database//
+      });
+    }
     this.setState({
       text: "",
     });
@@ -38,15 +43,10 @@ export default class TodoForm extends React.Component {
           value={this.state.text}
           onChange={this.handleChange}
         />
-        <Button
-          size="large"
-          variant="contained"
-          color="primary"
-          disableElevation
+        <StyledButton
+          text={"Add Item"}
           onClick={this.handleSubmit}
-        >
-          Add Item
-        </Button>
+        />
       </form>
     );
   }

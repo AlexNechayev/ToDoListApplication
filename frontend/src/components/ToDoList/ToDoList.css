@@ -7,16 +7,3 @@
   background-color: rgb(155, 182, 255);
   color: aliceblue;
 }
-
-.button {
-  margin: 5px;
-}
-
-.largeButton {
-  margin: 5px;
-  width: 290px;
-  height: 45px;
-  color: aliceblue;
-  background-color: cadetblue;
-  border-radius: 15px;
-}
