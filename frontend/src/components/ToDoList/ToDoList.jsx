@@ -30,7 +30,7 @@ export default class TodoList extends React.Component {
     this.setState((state) => ({
       itemsList: state.itemsList.map((item) => {
         if (item.id === id) {
-          //Backend: Attribute update.
+          //Backend: Attribute: "complete" update.
           console.log("hey")
           return {
             
@@ -54,6 +54,7 @@ export default class TodoList extends React.Component {
     this.setState((state) => ({
       itemsList: state.itemsList.filter((item) => item.id !== id),
     }));
+    //Backend : Serverside removes the item from the list
   };
 
   render() {
