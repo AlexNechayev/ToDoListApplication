@@ -1,13 +1,14 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-
+const express = require("express");
+const bodyParser = require("body-parser");
+//const mongoPractice = require("./mongo");
+const mongoPractice = require("./mongoose");
 
 const app = express();
 
 app.use(bodyParser.json());
 
-app.post('/products');
+app.post("/items", mongoPractice.createProduct);
 
-app.get('/products');
+//app.get("/items", mongoPractice.getProducts);
 
 app.listen(3000);
