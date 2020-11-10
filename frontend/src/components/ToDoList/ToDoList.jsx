@@ -3,7 +3,6 @@ import TodoForm from "../ToDoForm/TodoForm";
 import Todo from "../ToDoItem/Todo";
 import "./ToDoList.css";
 import StyledButton from "../shared/StyledButton";
-import Delete from "@material-ui/icons/DeleteForever";
 
 export default class TodoList extends React.Component {
   state = {
