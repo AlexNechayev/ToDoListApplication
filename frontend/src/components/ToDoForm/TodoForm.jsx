@@ -2,7 +2,7 @@ import React from "react";
 import shortid from "shortid";
 import "./TodoForm.css";
 import TextField from "@material-ui/core/TextField";
-import StyledButton from "../shared/StyledButton";
+import StyledButton from "../shared/StyledButton/StyledButton";
 
 export default class TodoForm extends React.Component {
   state = {
@@ -17,8 +17,10 @@ export default class TodoForm extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault(); //prevents the refresh of the web page
+
     if (this.state.text === "") {
       alert("Add an item");
+      throw new SyntaxError();
     } else {
       this.props.onSubmit({
         id: shortid.generate(),
@@ -33,18 +35,24 @@ export default class TodoForm extends React.Component {
   };
 
   render() {
+    const addItemBtn = (
+      <StyledButton text={"Add Item"} onClick={this.handleSubmit} />
+    );
+    const textFieldInput = (
+      <TextField
+        id="filled-basic"
+        label="Item..."
+        variant="filled"
+        name="text"
+        color="secondary"
+        value={this.state.text}
+        onChange={this.handleChange}
+      />
+    );
     return (
       <form className="formContainer" onSubmit={this.handleSubmit}>
-        <TextField
-          id="filled-basic"
-          label="Item..."
-          variant="filled"
-          name="text"
-          color="secondary"
-          value={this.state.text}
-          onChange={this.handleChange}
-        />
-        <StyledButton text={"Add Item"} onClick={this.handleSubmit} />
+        {textFieldInput}
+        {addItemBtn}
       </form>
     );
   }

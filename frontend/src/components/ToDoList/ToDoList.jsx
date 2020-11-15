@@ -2,27 +2,32 @@ import React from "react";
 import TodoForm from "../ToDoForm/TodoForm";
 import Todo from "../ToDoItem/Todo";
 import "./ToDoList.css";
-import StyledButton from "../shared/StyledButton";
+import StyledButton from "../shared/StyledButton/StyledButton";
+import ToDoService from "../../ToDoService";
 
 export default class TodoList extends React.Component {
-  state = {
-    itemsList: [], 
-    itemToShow: "all",
-    toggleAllComplete: true,
-    currentText: "",
-  };
-
-  UNSAFE_componentWillMount(){
-    //Backend: Get itemlist from serverside
-    //if list empty, do nothing.
+  constructor(props) {
+    super(props)
+    this.toDoService = new ToDoService();
+    this.state = {
+      itemsList: [],
+      itemToShow: "all",
+      toggleAllComplete: true,
+    };
   }
 
-  //Every item contain 3 atributes: id, text, completed.
-  //The "addTodo" function retrives an item as parameter and adds to the current state of the itemList
-  addTodo = (item) => {
+  // UNSAFE_componentWillMount() {
+  //   //Backend: Get item-list from server side
+  //   //if list empty, do nothing.
+  // }
+
+  //Every item contain 3 attributes: id, text, completed.
+  //The "addTodo" function retrieves an item as parameter and adds to the current state of the itemList
+  addToDo = (item) => {
     this.setState((state) => ({
       itemsList: [item, ...state.itemsList],
     }));
+    this.toDoService.AddToDo(item)
     //Backend: Post item
   };
 
@@ -31,9 +36,8 @@ export default class TodoList extends React.Component {
       itemsList: state.itemsList.map((item) => {
         if (item.id === id) {
           //Backend: Attribute: "complete" update.
-          console.log("hey")
+          console.log("found item with identical id");
           return {
-            
             ...item,
             complete: !item.complete,
           };
@@ -44,39 +48,74 @@ export default class TodoList extends React.Component {
     }));
   };
 
-  updateTodoToShow = (s) => {
+  updateToDoToShow = (s) => {
     this.setState({
       itemToShow: s,
     });
   };
 
-  handleDeleteTodo = (id) => {
+  handleDeleteToDo = (id) => {
     this.setState((state) => ({
       itemsList: state.itemsList.filter((item) => item.id !== id),
     }));
-    //Backend : Serverside removes the item from the list
+    //Backend : Server side removes the item from the list
   };
 
-  render() {
-    let itemsList = [];
+  removeAllToDosThatAreComplete = () => {
+    this.setState((state) => ({
+      itemsList: state.itemsList.filter((item) => !item.complete),
+    }));
+  };
 
+  handleListSelect() {
     if (this.state.itemToShow === "all") {
-      itemsList = this.state.itemsList;
+      return this.state.itemsList;
     } else if (this.state.itemToShow === "active") {
-      itemsList = this.state.itemsList.filter((item) => !item.complete);
+      return this.state.itemsList.filter((item) => !item.complete);
     } else if (this.state.itemToShow === "complete") {
-      itemsList = this.state.itemsList.filter((item) => item.complete);
+      return this.state.itemsList.filter((item) => item.complete);
     }
+    return null;
+  }
+
+  render() {
+    //export to function
+    const title = <h1 className="title">To Do List</h1>;
+
+    const allBtn = (
+      <StyledButton text={"ALL"} onClick={() => this.updateToDoToShow("all")} />
+    );
+    const completeBtn = (
+      <StyledButton
+        text={"COMPLETE"}
+        onClick={() => this.updateToDoToShow("complete")}
+      />
+    );
+    const activeBtn = (
+      <StyledButton
+        text={"ACTIVE"}
+        onClick={() => this.updateToDoToShow("active")}
+      />
+    );
+
+    const removeAllBtn = (
+      <StyledButton
+        text={"remove all complete items"}
+        onClick={this.removeAllToDosThatAreComplete}
+      />
+    );
+
+    let itemsList = this.handleListSelect();
 
     return (
       <div className="listContainer">
-        <h1 className="title">To Do List</h1>
-        <TodoForm onSubmit={this.addTodo} />
+        {title}
+        <TodoForm onSubmit={this.addToDo} />
         {itemsList.map((item) => (
           <Todo
             key={item.id}
             toggleComplete={() => this.toggleComplete(item.id)}
-            onDelete={() => this.handleDeleteTodo(item.id)}
+            onDelete={() => this.handleDeleteToDo(item.id)}
             item={item}
           />
         ))}
@@ -85,26 +124,14 @@ export default class TodoList extends React.Component {
           {this.state.itemsList.filter((item) => !item.complete).length}
         </div>
         <div>
-          <StyledButton
-            text={"all"}
-            onClick={() => this.updateTodoToShow("all")}
-          />
-          <StyledButton
-            text={"ACTIVE"}
-            onClick={() => this.updateTodoToShow("active")}
-          />
-          <StyledButton
-            text={"complete"}
-            onClick={() => this.updateTodoToShow("complete")}
-          />
+          {allBtn}
+          {activeBtn}
+          {completeBtn}
         </div>
         <div>
-          {this.state.itemsList.some((item) => item.complete) ? (
-            <StyledButton
-              text={"remove all complete items"}
-              onClick={this.removeAllTodosThatAreComplete}
-            ></StyledButton>
-          ) : null}
+          {this.state.itemsList.some((item) => item.complete)
+            ? removeAllBtn
+            : null}
         </div>
       </div>
     );
