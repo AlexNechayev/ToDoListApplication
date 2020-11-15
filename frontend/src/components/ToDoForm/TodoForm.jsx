@@ -2,7 +2,7 @@ import React from "react";
 import shortid from "shortid";
 import "./TodoForm.css";
 import TextField from "@material-ui/core/TextField";
-import StyledButton from '../shared/StyledButton'
+import StyledButton from "../shared/StyledButton";
 
 export default class TodoForm extends React.Component {
   state = {
@@ -36,17 +36,15 @@ export default class TodoForm extends React.Component {
     return (
       <form className="formContainer" onSubmit={this.handleSubmit}>
         <TextField
-          id="outlined-basic"
+          id="filled-basic"
           label="Item..."
-          variant="outlined"
+          variant="filled"
           name="text"
+          color="secondary"
           value={this.state.text}
           onChange={this.handleChange}
         />
-        <StyledButton
-          text={"Add Item"}
-          onClick={this.handleSubmit}
-        />
+        <StyledButton text={"Add Item"} onClick={this.handleSubmit} />
       </form>
     );
   }

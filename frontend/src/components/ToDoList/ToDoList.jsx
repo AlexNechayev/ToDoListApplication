@@ -6,24 +6,34 @@ import StyledButton from "../shared/StyledButton";
 
 export default class TodoList extends React.Component {
   state = {
-    itemsList: [],
+    itemsList: [], 
     itemToShow: "all",
     toggleAllComplete: true,
     currentText: "",
   };
 
+  UNSAFE_componentWillMount(){
+    //Backend: Get itemlist from serverside
+    //if list empty, do nothing.
+  }
+
+  //Every item contain 3 atributes: id, text, completed.
+  //The "addTodo" function retrives an item as parameter and adds to the current state of the itemList
   addTodo = (item) => {
     this.setState((state) => ({
       itemsList: [item, ...state.itemsList],
     }));
+    //Backend: Post item
   };
 
   toggleComplete = (id) => {
     this.setState((state) => ({
       itemsList: state.itemsList.map((item) => {
         if (item.id === id) {
-          // suppose to update
+          //Backend: Attribute: "complete" update.
+          console.log("hey")
           return {
+            
             ...item,
             complete: !item.complete,
           };
@@ -44,16 +54,7 @@ export default class TodoList extends React.Component {
     this.setState((state) => ({
       itemsList: state.itemsList.filter((item) => item.id !== id),
     }));
-  };
-
-  handleTextChange = (text) => {
-    this.setState({ currentText: text });
-  };
-
-  removeAllTodosThatAreComplete = () => {
-    this.setState((state) => ({
-      itemsList: state.itemsList.filter((item) => !item.complete),
-    }));
+    //Backend : Serverside removes the item from the list
   };
 
   render() {
@@ -69,7 +70,7 @@ export default class TodoList extends React.Component {
 
     return (
       <div className="listContainer">
-        <h1 calssName="title">To Do List</h1>
+        <h1 className="title">To Do List</h1>
         <TodoForm onSubmit={this.addTodo} />
         {itemsList.map((item) => (
           <Todo
