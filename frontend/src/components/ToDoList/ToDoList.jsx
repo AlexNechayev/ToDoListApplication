@@ -5,10 +5,11 @@ import "./ToDoList.css";
 import StyledButton from "../shared/StyledButton/StyledButton";
 import ToDoService from "../../ToDoService";
 
+let toDoService = ToDoService.getInstance();
+
 export default class TodoList extends React.Component {
   constructor(props) {
-    super(props)
-    this.toDoService = new ToDoService();
+    super(props);
     this.state = {
       itemsList: [],
       itemToShow: "all",
@@ -16,26 +17,28 @@ export default class TodoList extends React.Component {
     };
   }
 
-  // UNSAFE_componentWillMount() {
-  //   //Backend: Get item-list from server side
-  //   //if list empty, do nothing.
-  // }
+  componentWillMount() {
+    ///
+    this.state.itemsList = toDoService.initItemList();
+    ///
+  }
 
-  //Every item contain 3 attributes: id, text, completed.
-  //The "addTodo" function retrieves an item as parameter and adds to the current state of the itemList
   addToDo = (item) => {
     this.setState((state) => ({
       itemsList: [item, ...state.itemsList],
     }));
-    this.toDoService.AddToDo(item)
-    //Backend: Post item
+    ///
+    toDoService.AddToDo(item);
+    ///
   };
 
   toggleComplete = (id) => {
     this.setState((state) => ({
       itemsList: state.itemsList.map((item) => {
         if (item.id === id) {
-          //Backend: Attribute: "complete" update.
+          ///
+          toDoService.toggleItemComplete(id);
+          ///
           console.log("found item with identical id");
           return {
             ...item,
@@ -58,7 +61,9 @@ export default class TodoList extends React.Component {
     this.setState((state) => ({
       itemsList: state.itemsList.filter((item) => item.id !== id),
     }));
-    //Backend : Server side removes the item from the list
+    ///
+    toDoService.removeItem(id);
+    ///
   };
 
   removeAllToDosThatAreComplete = () => {
