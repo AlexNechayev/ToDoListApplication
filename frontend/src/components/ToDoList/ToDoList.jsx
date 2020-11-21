@@ -19,16 +19,17 @@ export default class TodoList extends React.Component {
 
   componentWillMount() {
     ///
-    this.state.itemsList = toDoService.initItemList();
+    this.setState({itemsList : toDoService.initItemList()});
     ///
   }
 
+  
   addToDo = (item) => {
     this.setState((state) => ({
       itemsList: [item, ...state.itemsList],
     }));
     ///
-    toDoService.AddToDo(item);
+    toDoService.addToDo(item);
     ///
   };
 

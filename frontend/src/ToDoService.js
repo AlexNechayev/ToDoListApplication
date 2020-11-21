@@ -27,10 +27,10 @@ export default class ToDoService {
   }
 
   initItemList(){
-    items = [];
+    let items = [];
     try{
       //item = Initialization of the item list;
-      return list
+      return items
     }catch(error){
       console.log(error);
     }
@@ -47,12 +47,9 @@ export default class ToDoService {
   toggleItemComplete(itemID){
     try{
       //find the given id in the database then toggle it's state.
-      return list
     }catch(error){
       console.log(error);
     }
   }
 
 }
-
-export default ToDoService;
