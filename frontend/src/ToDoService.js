@@ -9,7 +9,7 @@ export default class ToDoService {
     return this.instance;
   }
     
-  AddToDo(item) {
+  addToDo(item) {
     try{
        //Backend: Post item
       console.log(
@@ -26,10 +26,10 @@ export default class ToDoService {
 
   }
 
-  getAllItems(){
+  initItemList(){
     items = [];
     try{
-      //Initialization of the item list;
+      //item = Initialization of the item list;
       return list
     }catch(error){
       console.log(error);

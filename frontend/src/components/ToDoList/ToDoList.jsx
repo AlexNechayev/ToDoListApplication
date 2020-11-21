@@ -17,19 +17,28 @@ export default class TodoList extends React.Component {
     };
   }
 
+  componentWillMount() {
+    ///
+    this.state.itemsList = toDoService.initItemList();
+    ///
+  }
 
   addToDo = (item) => {
     this.setState((state) => ({
       itemsList: [item, ...state.itemsList],
     }));
+    ///
     toDoService.AddToDo(item);
+    ///
   };
 
   toggleComplete = (id) => {
     this.setState((state) => ({
       itemsList: state.itemsList.map((item) => {
         if (item.id === id) {
-          //Backend: Attribute: "complete" update.
+          ///
+          toDoService.toggleItemComplete(id);
+          ///
           console.log("found item with identical id");
           return {
             ...item,
@@ -52,7 +61,9 @@ export default class TodoList extends React.Component {
     this.setState((state) => ({
       itemsList: state.itemsList.filter((item) => item.id !== id),
     }));
-    //Backend : Server side removes the item from the list
+    ///
+    toDoService.removeItem(id);
+    ///
   };
 
   removeAllToDosThatAreComplete = () => {
