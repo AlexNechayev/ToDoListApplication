@@ -16,11 +16,10 @@ export default class TodoForm extends React.Component {
   };
 
   handleSubmit = (event) => {
-    event.preventDefault(); //prevents the refresh of the web page
-
+    event.preventDefault(); //prevents from the web page to refresh
+    console.log("1");
     if (this.state.text === "") {
       alert("Add an item");
-      throw new SyntaxError();
     } else {
       this.props.onSubmit({
         id: shortid.generate(),
