@@ -1,17 +1,16 @@
 export default class ToDoService {
-
   static instance = null;
 
-  static getInstance(){
-    if(ToDoService.instance == null){
+  static getInstance() {
+    if (ToDoService.instance == null) {
       ToDoService.instance = new ToDoService();
     }
     return this.instance;
   }
-    
+
   addToDo(item) {
-    try{
-       //Backend: Post item
+    try {
+      //Backend: Post item
       console.log(
         "Service called with item details: " +
           item.id +
@@ -20,36 +19,38 @@ export default class ToDoService {
           " " +
           item.complete
       );
-    }catch(error){
+    } catch (error) {
       console.log(error);
     }
-
   }
 
-  initItemList(){
+  initItemList() {
     let items = [];
-    try{
+    try {
       //item = Initialization of the item list;
-      return items
-    }catch(error){
+      console.log("Initializing the item list...");
+      return items;
+    } catch (error) {
       console.log(error);
+      return [];
     }
   }
 
-  removeItem(itemID){
-    try{
+  removeItem(itemID) {
+    try {
       //find the given id in the database and erase it from the list.
-    }catch(error){
-      console.log(error);
-    } 
-  }
-
-  toggleItemComplete(itemID){
-    try{
-      //find the given id in the database then toggle it's state.
-    }catch(error){
+      console.log("Service called with item id: " + itemID);
+    } catch (error) {
       console.log(error);
     }
   }
 
+  toggleItemComplete(itemID) {
+    try {
+      //find the given id in the database then toggle it's state.
+      console.log("Service called with item id: " + itemID);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }

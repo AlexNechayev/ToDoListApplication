@@ -16,7 +16,7 @@ export default class TodoForm extends React.Component {
   };
 
   handleSubmit = (event) => {
-    event.preventDefault(); //prevents from the web page to refresh
+    event.preventDefault(); //prevents from the web page to refresh when the event comes from onSubmit
     console.log("1");
     if (this.state.text === "") {
       alert("Add an item");
