@@ -22,4 +22,3 @@ const createProduct = ('/create', (req, res) => {
 
 exports.createProduct = createProduct;
 
-//'mongodb+srv://alex:rQDyfrrM8xDVArV@cluste.1zvnk.mongodb.net/test?retryWrites=true&w=majority'
