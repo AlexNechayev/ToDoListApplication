@@ -8,18 +8,15 @@ import ToDoService from "../../ToDoService";
 let toDoService = ToDoService.getInstance();
 
 export default class TodoList extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      itemsList: [],
-      itemToShow: "all",
-      toggleAllComplete: true,
-    };
-  }
+  state = {
+    itemsList: [],
+    itemToShow: "all",
+    toggleAllComplete: true,
+  };
 
-  componentWillMount() {
+  componentDidMount() { //https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html
     ///
-    this.state.itemsList = toDoService.initItemList();
+    this.setState({ itemsList: toDoService.initItemList() });
     ///
   }
 
@@ -28,7 +25,7 @@ export default class TodoList extends React.Component {
       itemsList: [item, ...state.itemsList],
     }));
     ///
-    toDoService.AddToDo(item);
+    toDoService.addToDo(item);
     ///
   };
 
