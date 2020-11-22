@@ -6,7 +6,7 @@ import StyledButton from "../shared/StyledButton/StyledButton";
 
 export default class TodoForm extends React.Component {
   state = {
-    text: "",
+    text: ""
   };
 
   handleChange = (event) => {
