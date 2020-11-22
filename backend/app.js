@@ -9,6 +9,6 @@ app.use(bodyParser.json());
 
 app.post("/items", mongoPractice.createProduct);
 
-//app.get("/items", mongoPractice.getProducts);
+app.get("/items", mongoPractice.getProducts);
 
 app.listen(3000);
