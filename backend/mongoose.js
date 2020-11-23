@@ -1,25 +1,32 @@
-const mongoose = require('mongoose');
+const { json } = require("body-parser");
+const mongoose = require("mongoose");
 
-const Product = require('./models/todo');
+const Product = require("./models/items");
 
-mongoose.connect(
-  "mongodb+srv://naum4ik:naumchas2010@cluster0.wxzfi.mongodb.net/todos?retryWrites=true&w=majority"
-).then(() => {
-    console.log('Connected to database!')
-}).catch(() => {
-    console.log('Connection failed!')
-});
+mongoose
+  .connect(
+    "mongodb+srv://alex:IGoE6L9FAMeNBfRh@cluster.drpjj.mongodb.net/test?retryWrites=true&w=majority"
+  )
+  .then(() => {
+    console.log("Connected to database!");
+  })
+  .catch(() => {
+    console.log("Connection failed!");
+  });
 
-const createProduct = ('/create', (req, res) => {
-  res.render('create', {
+const createProduct = async (req, res, next) => {
+  const createdProduct = new Product({
     id: req.body.id,
-    item: req.body.item
-})
-  const result = createdProduct.save();
+    item: req.body.item,
+  });
+  const result = await createdProduct.save();
 
   res.json(result);
-});
+};
 
+const getProducts = async (req, res, next) => {
+  const products = await Product.find().exec();
+  res.json(products);
+}
+exports.getProducts = getProducts;
 exports.createProduct = createProduct;
-
-//'mongodb+srv://alex:rQDyfrrM8xDVArV@cluste.1zvnk.mongodb.net/test?retryWrites=true&w=majority'
