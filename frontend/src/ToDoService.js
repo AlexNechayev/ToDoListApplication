@@ -1,5 +1,13 @@
+import axios from 'axios'
+
+const api = axios.create(
+  {baseURL:`http://localhost:3000/items`}
+);
+
 export default class ToDoService {
+
   static instance = null;
+
 
   static getInstance() {
     if (ToDoService.instance == null) {
