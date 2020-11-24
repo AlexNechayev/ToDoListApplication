@@ -18,7 +18,7 @@ export default class Todo extends React.Component {
     return (
       <div className="itemContainer">
         {checkBox}
-        <div>{this.props.item.text}</div>
+        <div>{this.props.item.item}</div>
         {deleteBtn}
       </div>
     );

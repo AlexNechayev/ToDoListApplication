@@ -14,35 +14,33 @@ export default class TodoList extends React.Component {
     toggleAllComplete: true,
   };
 
-  componentDidMount() { //https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html
-    ///
-    this.setState({ itemsList: toDoService.initItemList() });
-    ///
+  async componentDidMount() {
+    let items = await toDoService.getItemList();
+    this.setState({ itemsList: items });
   }
 
-  addToDo = (item) => {
+  addToDo = async (item) => {
+    let id = await toDoService.addToDo(item);
+    item.id = id;
     this.setState((state) => ({
       itemsList: [item, ...state.itemsList],
     }));
-    ///
-    toDoService.addToDo(item);
-    ///
   };
 
-  toggleComplete = (id) => {
+  toggleComplete = (item) => {
     this.setState((state) => ({
-      itemsList: state.itemsList.map((item) => {
-        if (item.id === id) {
+      itemsList: state.itemsList.map((itemObj) => {
+        if (itemObj._id === item._id) {
           ///
-          toDoService.toggleItemComplete(id);
+          toDoService.toggleItemComplete(item._id);
           ///
           console.log("found item with identical id");
           return {
-            ...item,
-            complete: !item.complete,
+            ...itemObj,
+            complete: !itemObj.complete,
           };
         } else {
-          return item;
+          return itemObj;
         }
       }),
     }));
@@ -54,12 +52,12 @@ export default class TodoList extends React.Component {
     });
   };
 
-  handleDeleteToDo = (id) => {
+  handleDeleteToDo = (item) => {
     this.setState((state) => ({
-      itemsList: state.itemsList.filter((item) => item.id !== id),
+      itemsList: state.itemsList.filter((i) => i._id !== item._id),
     }));
     ///
-    toDoService.removeItem(id);
+    toDoService.removeItem(item._id);
     ///
   };
 
@@ -82,6 +80,7 @@ export default class TodoList extends React.Component {
 
   render() {
     //export to function
+
     const title = <h1 className="title">To Do List</h1>;
 
     const allBtn = (
@@ -115,11 +114,11 @@ export default class TodoList extends React.Component {
         <TodoForm onSubmit={this.addToDo} />
         {itemsList.map((item) => (
           <Todo
-            key={item.id}
-            toggleComplete={() => this.toggleComplete(item.id)}
-            onDelete={() => this.handleDeleteToDo(item.id)}
+            key={item._id}
+            toggleComplete={() => this.toggleComplete(item)}
+            onDelete={() => this.handleDeleteToDo(item)}
             item={item}
-          />
+          ></Todo>
         ))}
         <div>
           Items left:{" "}

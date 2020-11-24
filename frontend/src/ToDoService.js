@@ -1,13 +1,9 @@
-import axios from 'axios'
+import axios from "axios";
 
-const api = axios.create(
-  {baseURL:`http://localhost:3000/items`}
-);
+const api = axios.create({ baseURL: `http://localhost:5000` });
 
 export default class ToDoService {
-
   static instance = null;
-  
 
   static getInstance() {
     if (ToDoService.instance == null) {
@@ -16,46 +12,44 @@ export default class ToDoService {
     return this.instance;
   }
 
-  addToDo(item) {
+  getItemList = async () => {
     try {
-      //Backend: Post item
-      console.log(
-        "Service called with item details: " +
-          item.id +
-          " " +
-          item.text +
-          " " +
-          item.complete
-      );
+      // let items = await this.getItems();
+      let items = await api.get("/items");
+      console.log(items.data);
+      return items.data;
     } catch (error) {
-      console.log(error);
-    }
-  }
-
-  initItemList() {
-    let items = [];
-    try {
-      //item = Initialization of the item list;
-      console.log("Initializing the item list...");
-      return items;
-    } catch (error) {
-      console.log(error);
+      console.log("GET ERROR: " + error);
       return [];
     }
-  }
+  };
 
-  removeItem(itemID) {
+  addToDo = async (item) => {
+    let res;
     try {
-      //find the given id in the database and erase it from the list.
+      res = await api.post("/items", {
+        item: item.item,
+        complete: item.complete,
+      });
+      return res.data._id;
+    } catch (error) {
+      console.log(error);
+    }
+    //console.log(res);
+  };
+
+  async removeItem(itemID) {
+    try {
+      await api.delete(`/items/${itemID}`);
       console.log("Service called with item id: " + itemID);
     } catch (error) {
       console.log(error);
     }
   }
 
-  toggleItemComplete(itemID) {
+  async toggleItemComplete(itemID) {
     try {
-      //find the given id in the database then toggle it's state.
+      await api.patch(`/items/${itemID}`);
       console.log("Service called with item id: " + itemID);
     } catch (error) {
       console.log(error);
